@@ -1,0 +1,3 @@
+flowcell_id	lane	index	sequencing_unit_id	plate	fq1	fq2
+HF7JFCCX2	8		HF7JFCCX2-8	44	/home/scruz/pipelines/dna_seq_gbs_variant_calling/data/44.1.fastq.gz	/home/scruz/pipelines/dna_seq_gbs_variant_calling/data/44.2.fastq.gz
+HF7JFCCX2	8		HF7JFCCX2-9	45	/home/scruz/pipelines/dna_seq_gbs_variant_calling/data/45.1.fastq.gz	/home/scruz/pipelines/dna_seq_gbs_variant_calling/data/45.2.fastq.gz

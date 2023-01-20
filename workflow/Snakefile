@@ -1,0 +1,18 @@
+include: "rules/common.smk"
+rule all:
+    input:
+        expand([
+            "results/{plate}/qc/multiqc.html",
+            "results/{plate}/stats/readpos/plateQC_readpos.pdf",
+            "results/{plate}/qc/plateQC.json",
+            ], plate = list(sequencing_units.plate.unique()))
+               
+        
+# Modules
+include: "rules/ref.smk"
+include: "rules/demultiplexing.smk"
+include: "rules/trimming.smk"
+include: "rules/mapping.smk"
+include: "rules/qc.smk"
+include: "rules/variant_calling.smk"
+

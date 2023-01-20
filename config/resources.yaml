@@ -1,0 +1,36 @@
+###
+# quality check rules
+###
+fastqc:
+    library: 10
+    sample: 2
+
+###
+# Demultiplexing rules
+###
+stacks:
+  threads: 30
+
+###
+# Trimming rules
+###
+trimmomatic:
+  threads: 5
+  mem: 4096
+###
+# Mapping rules
+###
+bwa_mem:
+    threads: 10
+picard_markduplicateds:
+    mem: 4096
+picard_mergesamfiles:
+    mem: 4096
+samtools:
+    sort:
+        threads: 5
+        mem: "-m 4G"
+    index:
+        threads: 5
+    merge:
+        threads: 5

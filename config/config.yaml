@@ -1,0 +1,35 @@
+
+sequencing_runs: config/lanes.txt
+barcode_map: config/samples.txt
+
+
+resources_config: config/resources.yaml
+bigtmp: tmpdir/
+ref:
+    path: /home/scruz/projects/gatk_begins/variant_calling/data/ref/PvulgarisUI111_534_v1.0.fa.gz
+    
+NGSEP:
+    path: /home/scruz/software/NGSEPcore-4.3.1/NGSEPcore_4.3.1.jar
+    SingleSampleVariantsDetector:
+        h: 0.0001
+        maxBaseQS: 30
+        minQuality: 40
+        maxAlnsPerStartPos: 100
+        ignore5: 7
+        ignore3: 13
+        knownSTRs: resources/PvulgarisUI111_534_v1.0.2.7.7.80.10.20.50_filtered.ngs
+demultiplexing:
+  re_enzime: "apeKI"
+
+trimmomatic:
+    pe:
+        trimmer:
+          - "LEADING:5"
+          - "TRAILING:5"
+          - "SLIDINGWINDOW:4:5"
+          - "MINLEN:36"
+          - "ILLUMINACLIP:data/adapter.fa:2:20:7:2"
+  
+picard:
+    MarkDuplicates: "REMOVE_DUPLICATES=true"
+

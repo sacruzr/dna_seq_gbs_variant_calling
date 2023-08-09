@@ -1,13 +1,49 @@
 include: "rules/common.smk"
 rule all:
     input:
-        expand([
-            "results/{plate}/qc/multiqc.html",
-            "results/{plate}/stats/readpos/plateQC_readpos.pdf",
-            "results/{plate}/qc/plateQC.json",
-            ], plate = list(sequencing_units.plate.unique()))
-               
+        multiqc_samples = expand([
+            "results/{plate}/mapping/{ref}/stats/multiqc.html",
+            "results/{plate}/mapping/{ref}/stats/readpos/plateQC_readpos.pdf"
+            ], plate = list(sequencing_units.plate.unique()),
+            ref = list(references.ref_name.unique())),
+        first = first_variant_calling(),
+        snps_per_plates = snps_plate()
+        #population = expand(['results/population/{population}/{ref}/vcf/{population}_merged.vcf',
+        #       'results/population/{population}/{ref}/vcf/{population}_merged_Q40.vcf.gz',
+        #        'results/population/{population}/{ref}/vcf/{population}_merged_Q40.summary.txt'
+        #       ], population = ['BAT_881_G21212','VAP_009_SEN_118'],
+        #                   ref = list(references.ref_name.unique()))
+
+rule test:
+    input:
+        meged_plates = [
+        "results/45/mapping/v2.1/vcf/45_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/46/mapping/v2.1/vcf/46_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/47/mapping/v2.1/vcf/47_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/48/mapping/v2.1/vcf/48_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/49/mapping/v2.1/vcf/49_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/50/mapping/v2.1/vcf/50_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/45/mapping/UI_111/vcf/45_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/46/mapping/UI_111/vcf/46_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/47/mapping/UI_111/vcf/47_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/48/mapping/UI_111/vcf/48_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/49/mapping/UI_111/vcf/49_merged_Q40_Dp5_MAF0.05_sorted_summary.txt",
+"results/50/mapping/UI_111/vcf/50_merged_Q40_Dp5_MAF0.05_sorted_summary.txt"]
         
+rule libraryQC:
+    input:
+        get_sequencing_units_qc
+
+rule variant_calling:
+    input: 
+        first_variant_calling()
+rule population_merge_variants:
+    input:
+        expand(['results/population/{population}/vcf/{population}_merged.vcf',
+               'results/population/{population}/vcf/{population}_merged_Q40.vcf.gz',
+                'results/population/{population}/vcf/{population}_merged_Q40.summary.txt'
+               ],
+                  population = ['BAT_881_G21212','VAP_009_SEN_118'])
 # Modules
 include: "rules/ref.smk"
 include: "rules/demultiplexing.smk"
@@ -15,4 +51,4 @@ include: "rules/trimming.smk"
 include: "rules/mapping.smk"
 include: "rules/qc.smk"
 include: "rules/variant_calling.smk"
-
+include: "rules/filtering.smk"

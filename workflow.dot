@@ -1,0 +1,47 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "all", color = "0.32 0.6 0.85", style="rounded"];
+	1[label = "demultiplex", color = "0.63 0.6 0.85", style="rounded"];
+	2[label = "get_barcodemap", color = "0.02 0.6 0.85", style="rounded"];
+	3[label = "single_sample_variant_detector", color = "0.52 0.6 0.85", style="rounded"];
+	4[label = "sort_bam", color = "0.36 0.6 0.85", style="rounded"];
+	5[label = "map_reads", color = "0.23 0.6 0.85", style="rounded"];
+	6[label = "bwa_index", color = "0.20 0.6 0.85", style="rounded"];
+	7[label = "vcf_summary", color = "0.04 0.6 0.85", style="rounded"];
+	8[label = "snps_plate_vcfs", color = "0.34 0.6 0.85", style="rounded"];
+	9[label = "sort_plate_vcfs", color = "0.41 0.6 0.85", style="rounded"];
+	10[label = "first_filtering", color = "0.09 0.6 0.85", style="rounded"];
+	11[label = "merge_vcfs_by_plate", color = "0.65 0.6 0.85", style="rounded"];
+	12[label = "single_sample_variant_detector_two", color = "0.56 0.6 0.85", style="rounded"];
+	13[label = "merge_variants_by_plate", color = "0.31 0.6 0.85", style="rounded"];
+	14[label = "list_ref_seqs", color = "0.38 0.6 0.85", style="rounded"];
+	15[label = "genome_faidx", color = "0.50 0.6 0.85", style="rounded"];
+	16[label = "multiqc", color = "0.45 0.6 0.85", style="rounded"];
+	17[label = "plate_readpos_qc", color = "0.59 0.6 0.85", style="rounded"];
+	18[label = "trim_reads_se", color = "0.27 0.6 0.85", style="rounded"];
+	3 -> 0
+	7 -> 0
+	17 -> 0
+	16 -> 0
+	2 -> 1
+	4 -> 3
+	5 -> 4
+	6 -> 5
+	18 -> 5
+	8 -> 7
+	9 -> 8
+	10 -> 9
+	11 -> 10
+	14 -> 11
+	12 -> 11
+	13 -> 12
+	4 -> 12
+	3 -> 13
+	14 -> 13
+	15 -> 14
+	1 -> 16
+	1 -> 17
+	1 -> 18
+}            

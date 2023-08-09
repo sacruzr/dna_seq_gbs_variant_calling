@@ -1,0 +1,7 @@
+flowcell_id	lane	index	sequencing_unit_id	plate	fq1	fq2
+HKY23DSX3	3	AATCGAC	HKY23DSX3-3-AATCGAC	45	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400050-GBS-45-1-GBS-45-1/R23400050-GBS-45-1-GBS-45-1_combined_R1.fastq.gz	
+HKY23DSX3	2	ATCAAGT	HKY23DSX3-2-ATCAAGT	46	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400052-GBS-46-GBS-46/R23400052-GBS-46-GBS-46_combined_R1.fastq.gz	
+HTK35DSX3	4	AATGACA	HTK35DSX3-4-AATGACA	47	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400053-GBS-47-GBS-47/R23400053-GBS-47-GBS-47_combined_R1.fastq.gz	
+HTK35DSX3	2	ATCAAGT	HTK35DSX3-2-ATCAAGT	48	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400054-GBS-48-GBS-48/R23400054-GBS-48-GBS-48_combined_R1.fastq.gz	
+HTK35DSX3	3	AATGACA	HTK35DSX3-3-AATGACA	49	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400055-GBS-49-GBS-49/R23400055-GBS-49-GBS-49_combined_R1.fastq.gz	
+HTK35DSX3	3	AATCGAC	HTK35DSX3-3-AATCGAC	50	/catalogue/InterspecificCommonBeanDenovoGenomeAssembly/5.Others/ongoing_gbs/CGNGSLL221007/Sample_R23400056-GBS-50-GBS-50/R23400056-GBS-50-GBS-50_combined_R1.fastq.gz	

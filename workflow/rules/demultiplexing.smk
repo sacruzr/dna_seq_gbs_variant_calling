@@ -11,29 +11,18 @@ rule get_barcodemap:
                 print(barcode, linde_id, sep="\t", file=f)
                 
                 
-rule seqtk_subsample_pe:
-    input:
-        unpack(get_subsample_fastqs)
-    output:
-        f1="data/{plate}.1.fastq.gz",
-        f2="data/{plate}.2.fastq.gz"
-    params:
-        n=500000,
-        seed=12345
-    threads:
-        1
-    wrapper:
-        "v1.21.1/bio/seqtk/subsample/pe"
 
-checkpoint demultiplex_pe:
+checkpoint demultiplex:
     output: 
-        outdir = temp(directory("results/{plate}/reads/demultiplexing")),
+        outdir = directory("results/{plate}/reads/demultiplexing/stacks"),
         logfile = "results/{plate}/logs/process_radtags.data.log"
     input: 
         unpack(get_demultiplex_fastqs),
         barcodemap = "results/{plate}/reads/barcodemap.tsv",
     params:
-        extra = "-e {enzyme}".format(enzyme = config['demultiplexing']['re_enzime'])
+        extra = "-e {enzyme}".format(enzyme = config['demultiplexing']['re_enzime']),
+        raw_reads_folder = lambda wildcards: get_rawread_folder_name(wildcards),
+        files = lambda wildcards: get_demultiplex_params(wildcards)
     threads:
         resources['stacks']['threads']
     log:
@@ -43,19 +32,20 @@ checkpoint demultiplex_pe:
     shell:
         """
         mkdir {output.outdir}
-        process_radtags -P \
+        process_radtags \
             --threads {threads} \
-            -1 {input.r1} \
-            -2 {input.r2} \
+            {params.files} \
             -b {input.barcodemap} \
             -o {output.outdir} \
             --retain-header \
             --inline_null \
-            -c -r \
+            -r \
             {params.extra} 2> {log} &&
-        mv {output.outdir}/process_radtags.data.log {output.logfile}
+        mv {output.outdir}/process_radtags.{params.raw_reads_folder}.log {output.logfile}
         """
 
+
+        
 rule concat_remaining_reads:
     input:
         get_remaining_reads
@@ -63,5 +53,5 @@ rule concat_remaining_reads:
         temp("results/{plate}/reads/demultiplexing/remaining/{sample}.rem.fq.gz")
     shell:
         """
-        zcat {input} | gzip -c > {output}
+        zcat {input} | {config[bgzip]} -c > {output}
         """

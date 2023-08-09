@@ -34,14 +34,6 @@ trimmomatic:
 picard:
     MarkDuplicates: "REMOVE_DUPLICATES=true"
 
-plate_snps:
-    Q: 40
-    dp: 5
-    maf: 0.05
-    
-
-
-
 bcftools: '/home/scruz/software/bcftools/bin/bcftools'
 bgzip: '/home/scruz/software/htslib/bin/bgzip'
 tabix: '/home/scruz/software/htslib/bin/tabix'
